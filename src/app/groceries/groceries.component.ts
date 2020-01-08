@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Grocery } from '../grocery';
-import { GROCERIES } from '../mock-groceries';
+import { GroceryService } from '../grocery.service';
 
 @Component({
   selector: 'app-groceries',
@@ -8,20 +8,20 @@ import { GROCERIES } from '../mock-groceries';
   styleUrls: ['./groceries.component.css']
 })
 export class GroceriesComponent implements OnInit {
-  constructor() { }
+  constructor(private groceryService: GroceryService) { }
 
-  groceries = GROCERIES;
-
-  grocery = Grocery = {
-    id: 1,
-    name: 'Toilettenpapier'
-  };
+  groceries: Grocery[];
 
   onSelect(grocery: Grocery): void {
     this.selectedGrocery = grocery;
   }
 
   ngOnInit() {
+    this.getGroceries();
+  }
 
+  getGroceries(): void {
+    this.groceryService.getGroceries()
+      .subscribe(groceries => this.groceries = groceries);
   }
 }
