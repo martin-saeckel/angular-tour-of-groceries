@@ -1,16 +1,8 @@
 <h2>My Groceries</h2>
 <ul class="groceries">
-  <li *ngFor="let grocery of groceries" (click)="onSelect(grocery)">
+  <li *ngFor="let grocery of groceries" (click)="onSelect(grocery)" [class.selected]="grocery === selectedGrocery">
     <span class="badge">{{grocery.id}}</span> {{grocery.name}}
   </li>
 </ul>
 
-<div *ngIf="selectedGrocery">
-  <h2>{{selectedGrocery.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{selectedGrocery.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="selectedGrocery.name" placeholder="name" />
-    </label>
-  </div>
-</div>
+<app-grocery-detail [grocery]="selectedGrocery"></app-grocery-detail>

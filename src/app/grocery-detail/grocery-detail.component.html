@@ -1,0 +1,14 @@
+<div *ngIf="grocery">
+  <h2>{{selectedGrocery.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{grocery.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="grocery.name" placeholder="name" />
+    </label>
+  </div>
+  <div>
+    <label>price:
+      <input [(ngModel)]="grocery.price" placeholder="price" />
+    </label>
+  </div>
+</div>
