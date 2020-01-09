@@ -15,4 +15,9 @@ export class GroceryService {
     this.messageService.add('GroceryService: Groceries fetched');
     return of (GROCERIES);
   }
+
+  getGrocery(id: number): Observable<Grocery> {
+    this.messageService.add(`GroceryService: fetched Grocery id=${id}`);
+    return of(GROCERIES.find(grocery => grocery.id === id));
+  }
 }

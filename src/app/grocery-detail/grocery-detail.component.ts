@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Grocery } from '../grocery';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { GroceryService } from '../grocery.service';
 
 @Component({
   selector: 'app-grocery-detail',
@@ -10,9 +13,23 @@ import { Grocery } from '../grocery';
 export class GroceryDetailComponent {
   @Input() grocery: Grocery;
   
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private groceryService: GroceryService,
+    private location: Location
+  ) {}
 
-  ngOnInit() {
-    
+  ngOnInit(): void {
+    this.getGrocery();
+  }
+
+  getGrocery(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.groceryService.getGrocery(id)
+      .subscribe(grocery => this.grocery = grocery);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

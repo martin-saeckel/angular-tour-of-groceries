@@ -12,10 +12,6 @@ export class GroceriesComponent implements OnInit {
 
   groceries: Grocery[];
 
-  onSelect(grocery: Grocery): void {
-    this.selectedGrocery = grocery;
-  }
-
   ngOnInit() {
     this.getGroceries();
   }
