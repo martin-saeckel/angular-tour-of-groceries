@@ -32,4 +32,9 @@ export class GroceryDetailComponent {
   goBack(): void {
     this.location.back();
   }
+
+  save(): void {
+    this.groceryService.updateGrocery(this.grocery)
+      .subscribe(() => this.goBack());
+  }
 }
