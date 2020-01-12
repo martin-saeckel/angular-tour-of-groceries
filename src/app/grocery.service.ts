@@ -55,4 +55,31 @@ export class GroceryService {
       catchError(this.handleError<any>('updateGrocery'))
     );
   }
+
+  addGrocery (grocery: Grocery): Observable<Grocery> {
+    return this.http.post<Grocery>(this.groceriesUrl, grocery, this.httpOptions).pipe(
+      //tap((newGrocery: Grocery) => this.log(`added grocery w/ id=${newGrocery.id}`)),
+      catchError(this.handleError<Grocery>('addGrocery'))
+    );
+  }
+
+  deleteGrocery (grocery: Grocery | number): Observable<Grocery> {
+    const id = typeof Grocery === 'number' ? grocery : grocery.id;
+    const url = `${this.groceriesUrl}/${id}`;
+
+    return this.http.delete<Grocery>(url, this.httpOptions).pipe(
+      //tap(_ => this.log(`deleted grocery id= ${id}`)),
+      catchError(this.handleError<Grocery>('deleteGrocery'))
+    )
+  }
+
+  searchGroceries(term: string): Observable<Grocery[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Grocery[]>(`${this.groceriesUrl}/?name=${term}`).pipe(
+      //tap(_ => this.log(`found groceries matching "${term}"`)),
+      catchError(this.handleError<Grocery[]>('searchGroceries', []))
+    );
+  }
 }

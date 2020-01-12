@@ -20,4 +20,19 @@ export class GroceriesComponent implements OnInit {
     this.groceryService.getGroceries()
       .subscribe(groceries => this.groceries = groceries);
   }
+
+  add(name: string, price: number): void {
+    name = name.trim();
+    if(!name) { return; }
+    if(!price) { return; }
+    this.groceryService.addGrocery({ name, price } as Grocery)
+      .subscribe(grocery => {
+        this.groceries.push(grocery);
+      });
+  }
+
+  delete(grocery: Grocery): void {
+    this.groceries = this.groceries.filter(h => h !== grocery);
+    this.groceryService.deleteGrocery(grocery).subscribe();
+  }
 }

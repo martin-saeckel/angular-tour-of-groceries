@@ -1,8 +1,18 @@
 <h2>My Groceries</h2>
+<div>
+  <label>Add grocery:
+    <input #groceryName placeholder='name' />
+    <input #groceryPrice placeholder='price' />
+  </label>
+  <button (click)="add(groceryName.value, groceryPrice.value); groceryName.value=''; groceryPrice.value=''">
+    add
+  </button>
+</div>
 <ul class="groceries">
   <li *ngFor="let grocery of groceries">
     <a routerLink="/detail/{{grocery.id}}">
       <span class="badge">{{grocery.id}}</span> {{grocery.name}}
     </a>
+    <button class="delete" title="delete grocery" (click)="delete(grocery)">x</button>
   </li>
 </ul>
